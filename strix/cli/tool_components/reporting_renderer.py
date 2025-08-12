@@ -31,8 +31,7 @@ class CreateVulnerabilityReportRenderer(BaseToolRenderer):
                 )
 
             if content:
-                content_preview = content[:100] + "..." if len(content) > 100 else content
-                content_parts.append(f"  [dim]{cls.escape_markup(content_preview)}[/]")
+                content_parts.append(f"  [dim]{cls.escape_markup(content)}[/]")
 
             content_text = "\n".join(content_parts)
         else:

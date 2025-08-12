@@ -51,8 +51,7 @@ class SubagentStartInfoRenderer(BaseToolRenderer):
 
         content = f"🤖 Spawned subagent [bold #22c55e]{name}[/bold #22c55e]"
         if task:
-            display_task = task[:80] + "..." if len(task) > 80 else task
-            content += f"\n    Task: [dim]{display_task}[/dim]"
+            content += f"\n    Task: [dim]{task}[/dim]"
 
         css_classes = cls.get_css_classes(status)
         return Static(content, classes=css_classes)

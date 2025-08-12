@@ -248,7 +248,6 @@ class LLM:
             "model": self.config.model_name,
             "messages": messages,
             "temperature": self.config.temperature,
-            "stop": ["</function>"],
         }
 
         queue = get_global_queue()

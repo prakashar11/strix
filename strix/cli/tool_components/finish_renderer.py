@@ -23,8 +23,7 @@ class FinishScanRenderer(BaseToolRenderer):
         )
 
         if content:
-            content_display = content[:600] + "..." if len(content) > 600 else content
-            content_text = f"{header}\n  [bold]{cls.escape_markup(content_display)}[/]"
+            content_text = f"{header}\n  [bold]{cls.escape_markup(content)}[/]"
         else:
             content_text = f"{header}\n  [dim]Generating final report...[/]"
 

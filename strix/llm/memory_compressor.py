@@ -145,7 +145,7 @@ class MemoryCompressor:
         model_name: str | None = None,
     ):
         self.max_images = max_images
-        self.model_name = model_name or os.getenv("STRIX_LLM", "anthropic/claude-sonnet-4-20250514")
+        self.model_name = model_name or os.getenv("STRIX_LLM", "openai/gpt-5")
 
         if not self.model_name:
             raise ValueError("STRIX_LLM environment variable must be set and not empty")

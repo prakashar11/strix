@@ -12,6 +12,7 @@ import sys
 from pathlib import Path
 from typing import Any
 from urllib.parse import urlparse
+import shutil
 
 import docker
 import litellm
@@ -73,7 +74,7 @@ def validate_environment() -> None:
         error_text.append("• ", style="white")
         error_text.append("STRIX_LLM", style="bold cyan")
         error_text.append(
-            " - Model name to use with litellm (e.g., 'anthropic/claude-sonnet-4-20250514')\n",
+            " - Model name to use with litellm (e.g., 'openai/gpt-5')\n",
             style="white",
         )
         error_text.append("• ", style="white")
@@ -91,7 +92,7 @@ def validate_environment() -> None:
 
         error_text.append("\nExample setup:\n", style="white")
         error_text.append(
-            "export STRIX_LLM='anthropic/claude-sonnet-4-20250514'\n", style="dim white"
+                "export STRIX_LLM='openai/gpt-5'\n", style="dim white"
         )
         error_text.append("export LLM_API_KEY='your-api-key-here'\n", style="dim white")
         if missing_optional_vars:
@@ -118,11 +119,32 @@ def _validate_llm_response(response: Any) -> None:
         raise RuntimeError("Invalid response from LLM")
 
 
+def check_docker_installed() -> None:
+    if shutil.which("docker") is None:
+        console = Console()
+        error_text = Text()
+        error_text.append("❌ ", style="bold red")
+        error_text.append("DOCKER NOT INSTALLED", style="bold red")
+        error_text.append("\n\n", style="white")
+        error_text.append("The 'docker' CLI was not found in your PATH.\n", style="white")
+        error_text.append("Please install Docker and ensure the 'docker' command is available.\n\n", style="white")
+
+        panel = Panel(
+            error_text,
+            title="[bold red]🛡️  STRIX STARTUP ERROR",
+            title_align="center",
+            border_style="red",
+            padding=(1, 2),
+        )
+        console.print("\n", panel, "\n")
+        sys.exit(1)
+
+
 async def warm_up_llm() -> None:
     console = Console()
 
     try:
-        model_name = os.getenv("STRIX_LLM", "anthropic/claude-sonnet-4-20250514")
+        model_name = os.getenv("STRIX_LLM", "openai/gpt-5")
         api_key = os.getenv("LLM_API_KEY")
 
         if api_key:
@@ -136,7 +158,6 @@ async def warm_up_llm() -> None:
         response = litellm.completion(
             model=model_name,
             messages=test_messages,
-            max_tokens=10,
         )
 
         _validate_llm_response(response)
@@ -523,6 +544,7 @@ def main() -> None:
     if sys.platform == "win32":
         asyncio.set_event_loop_policy(asyncio.WindowsSelectorEventLoopPolicy())
 
+    check_docker_installed()
     pull_docker_image()
 
     validate_environment()

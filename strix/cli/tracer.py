@@ -54,8 +54,7 @@ class Tracer:
 
     def get_run_dir(self) -> Path:
         if self._run_dir is None:
-            workspace_root = Path(__file__).parent.parent.parent
-            runs_dir = workspace_root / "agent_runs"
+            runs_dir = Path.cwd() / "agent_runs"
             runs_dir.mkdir(exist_ok=True)
 
             run_dir_name = self.run_name if self.run_name else self.run_id

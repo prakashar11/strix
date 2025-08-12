@@ -84,16 +84,10 @@ class AgentFinishRenderer(BaseToolRenderer):
         )
 
         if result_summary:
-            summary_display = (
-                result_summary[:400] + "..." if len(result_summary) > 400 else result_summary
-            )
-            content_parts = [f"{header}\n  [bold]{cls.escape_markup(summary_display)}[/]"]
+            content_parts = [f"{header}\n  [bold]{cls.escape_markup(result_summary)}[/]"]
 
             if findings and isinstance(findings, list):
-                finding_lines = [f"• {finding}" for finding in findings[:3]]
-                if len(findings) > 3:
-                    finding_lines.append(f"• ... +{len(findings) - 3} more findings")
-
+                finding_lines = [f"• {finding}" for finding in findings]
                 content_parts.append(
                     f"  [dim]{chr(10).join([cls.escape_markup(line) for line in finding_lines])}[/]"
                 )

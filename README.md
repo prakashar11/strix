@@ -19,16 +19,6 @@
 
 ---
 
-## 🚨 The AI Security Crisis
-
-Everyone's shipping code faster than ever. Cursor, Windsurf, and Claude made coding easy - but QA and security testing are now the real bottlenecks.
-
-> **Number of security vulnerabilities doubled post-AI.**
-
-Traditional security tools weren't designed for this. SAST was a temporary fix when manual pentesting cost $10k+ and took weeks. Now, Strix delivers real security testing rapidly.
-
-**The solution:** Enable developers to use AI coding at full speed, without compromising on security.
-
 ## 🦉 Strix Overview
 
 Strix are autonomous AI agents that act just like real hackers - they run your code dynamically, find vulnerabilities, and validate them through actual exploitation. Built for developers and security teams who need fast, accurate security testing without the overhead of manual pentesting or the false positives of static analysis tools.
@@ -40,7 +30,7 @@ Strix are autonomous AI agents that act just like real hackers - they run your c
 pipx install strix-agent
 
 # Configure AI provider
-export STRIX_LLM="anthropic/claude-sonnet-4-20250514"
+export STRIX_LLM="openai/gpt-5"
 export LLM_API_KEY="your-api-key"
 
 # Run security assessment
@@ -103,7 +93,7 @@ strix --target api.your-app.com --instruction "Prioritize authentication and aut
 
 ```bash
 # Required
-export STRIX_LLM="anthropic/claude-sonnet-4-20250514"
+export STRIX_LLM="openai/gpt-5"
 export LLM_API_KEY="your-api-key"
 
 # Recommended
