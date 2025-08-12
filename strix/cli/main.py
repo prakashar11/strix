@@ -74,7 +74,7 @@ def validate_environment() -> None:
         error_text.append("• ", style="white")
         error_text.append("STRIX_LLM", style="bold cyan")
         error_text.append(
-            " - Model name to use with litellm (e.g., 'openai/gpt-5')\n",
+            " - Model name to use with litellm (e.g., 'anthropic/claude-opus-4-1-20250805')\n",
             style="white",
         )
         error_text.append("• ", style="white")
@@ -92,7 +92,7 @@ def validate_environment() -> None:
 
         error_text.append("\nExample setup:\n", style="white")
         error_text.append(
-                "export STRIX_LLM='openai/gpt-5'\n", style="dim white"
+                "export STRIX_LLM='anthropic/claude-opus-4-1-20250805'\n", style="dim white"
         )
         error_text.append("export LLM_API_KEY='your-api-key-here'\n", style="dim white")
         if missing_optional_vars:
@@ -144,7 +144,7 @@ async def warm_up_llm() -> None:
     console = Console()
 
     try:
-        model_name = os.getenv("STRIX_LLM", "openai/gpt-5")
+        model_name = os.getenv("STRIX_LLM", "anthropic/claude-opus-4-1-20250805")
         api_key = os.getenv("LLM_API_KEY")
 
         if api_key:
